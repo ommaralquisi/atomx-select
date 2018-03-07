@@ -1,0 +1,41 @@
+<div tabindex="0" (click)="stopProp($event)"
+     class="ui-select-container ui-select-multiple dropdown form-control open">
+  <span *ngIf="popupOption" class="option" (click)="openPopup()">
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+  </span>
+  <span [ngClass]="{'loading': loading}"></span>
+  <span class="ui-select-match">
+           <span *ngFor="let a of selected">
+               <span class="ui-select-match-item btn btn-outline-primary btn-sm"
+                     tabindex="-1"
+                     [class.active]="isSelectedItemActive(a)"
+                     (click)="setSelectedAsActive(a)"
+               >
+                  <a class="close"
+                     style="margin-left: 5px; padding: 0;"
+                     (click)="removeSelectedItem(a, $event)">
+                  &times;</a>
+                  <span [innerHtml]="sanitize(a)"></span>
+              </span>
+           </span>
+       </span>
+  <input type="text" autocomplete="false" #input autocorrect="off" autocapitalize="off" spellcheck="false"
+         class="form-control ui-select-search" role="combobox" (paste)="onPaste($event)" (click)="onInputCLick()">
+
+
+  <div class="dropdown-menu ui-select-choices" *ngIf="optionsOpened && options.length > 0">
+    <a class="dropdown-item ui-select-choices-row" *ngFor="let o of options" [class.active]="isOptionItemActive(o)"
+       (mouseenter)="setOptionAsActive(o)"
+       (click)="selectItem(o, $event)" [innerHtml]="sanitize(o)"></a>
+  </div>
+
+  <div *ngIf="popup" class="popover">
+    <div class="arrow"></div>
+    <div class="popover-body">
+      <div class="copy-button" (click)="onCopy()">copy</div>
+      <div class="clear-button" (click)="onClear()">clear</div>
+    </div>
+  </div>
+</div>

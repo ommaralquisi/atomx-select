@@ -1,27 +1,42 @@
-# AtomxSelect
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
+## installation
+* `npm install atomx-select`
+* import  `AtomxSelectModule` into app module 
+* the module exports `AtomxSelectComponent` and `DataService` class 
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## usage with static data 
+add the the `AtomxSelectComponent` selector  to html like so 
+```
+<atomx-select propertyName="name" [popupOption]="true" [dataService]="names"></atomx-select>
+```
 
-## Code scaffolding
+* add a propriety `item` that contain a an array of item the `atomx-select` should display .
+* add a property `selected` that contain an array of the selected items.
+* In the component class instantiate a `DataService` object `this.item = new DataService();` inside the constructor function. 
+* in the `ngOnInit` use the `setItems$` to set the items and `setSelected$` to the selected items 
+* the dataService expose `selected$ ` as an observable that you can subscribe to to get the list of the selected item from the component  `this.item.selected$.subscribe(selected => console.log(selected))`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## API 
+### property 
+* **propertyName**  _type: string_ the property name to be displayed 
+* **popupOption**  _type:boolean_ whether to display the popup option *
+* **dataService**     _type: DataService_ instant of DataService class that keep the data in sync between the consumer component and  `AtomxSelectComponent`
+* **loading**  _type:boolean_ display loading indicator
+* **fetch**       _type: boolean_ the component data is fetched api 
+### event
+* **search**  fires when the user search(type) this option only work when the fetch property is set to true (when the data is fetch via api)
+* **past**  firs when the user past into the input file 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+### example with static data
+Code available in the ….
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## todo:
+- [ ] support bootstrap v4
+- [ ] allow custom template for the popup option button
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#atomx-select
