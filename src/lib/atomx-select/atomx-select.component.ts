@@ -29,7 +29,6 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
   @Input() fetch: boolean;
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
   @Output() pasteHandler: EventEmitter<string> = new EventEmitter<string>();
-  @Output() clearButton: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() copyButton: EventEmitter<string> = new EventEmitter<string>();
 
   dom: Document;
@@ -370,7 +369,6 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
     } else {
       text = (event.originalEvent || event).clipboardData.getData('text/plain');
     }
-    console.log(text);
     this.pasteHandler.emit(text);
     event.preventDefault();
     event.stopPropagation();
@@ -387,7 +385,6 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
     });
     this.selected = [];
     this.dataService.setSelected$(this.selected);
-    this.clearButton.emit(true);
   }
 
   onCopy() {
@@ -396,7 +393,19 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
       return select.name;
     });
     this.copyButton.emit(name.join(' ,'));
-    // todo: add this copied item to the clip board
+    const element = document.createElement('textarea');
+    // push the textarea off the screen
+    element.setAttribute('style', 'position: absolute;left: -200px;');
+    element.value = name.join(' ,');
+    // Add it to the document so that it can be focused.
+    document.body.appendChild(element);
+    // Focus on the element so that it can be copied.
+    element.focus();
+    element.setSelectionRange(0, element.value.length);
+    // Execute the copy command.
+    document.execCommand('copy');
+    // Remove the element to keep the document clear.
+    document.body.removeChild(element);
   }
 
   ngOnDestroy() {
