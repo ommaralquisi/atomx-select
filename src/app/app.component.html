@@ -1,27 +1,24 @@
-
-
-
 <div class="container">
-  <h1>welcome to atomx select</h1>
-  <p>this library aim to replace ui select library for angularJs</p>
+  <h1>welcome to Atomx select</h1>
+  <p>This library aim to replace ui select library for angularJs</p>
   <p>
-    this library is written in the latest angular and support limited but core functionality
+    The library is written in the latest angular and support limited but core functionality
   </p>
 
   <div class="row">
     <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">example with static  data</div>
-        <div class="panel-body">
-          <atomx-select propertyName="name" [popupOption]="true" [dataService]="names"></atomx-select>
+      <div class="card">
+        <div class="card-header">example with static  data</div>
+        <div class="card-body">
+          <atomx-select propertyName="name" (pasteHandler)="onPast($event)" [popupOption]="true" [dataService]="names"></atomx-select>
           {{selectedNames | json}}
         </div>
       </div>
     </div>
     <div class="col-sm-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">example with dynamic data (fetched from api end point)</div>
-        <div class="panel-body">
+      <div class="card">
+        <div class="card-header">example with dynamic data (fetched from api end point)</div>
+        <div class="card-body">
           <atomx-select
             propertyName="name" [popupOption]="true" [loading]="loading" [fetch]="true" [dataService]="usersData"
             (search)="onSearch($event)"
@@ -30,5 +27,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <br>
+
+  <div class="alert alert-primary" role="alert">
+    Note: the pastHandler log the pasted item to the console
   </div>
 </div>

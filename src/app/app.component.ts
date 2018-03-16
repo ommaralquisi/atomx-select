@@ -103,6 +103,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onPast(event) {
+    console.log(event);
+  }
+
   onSearch(event) {
     console.log(event);
     if (event.length <= 3) {
