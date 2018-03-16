@@ -27,6 +27,7 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
   @Input() loading = false;
   @Input() dataService: DataService;
   @Input() fetch: boolean;
+  @Input() copyProperty: string;
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
   @Output() pasteHandler: EventEmitter<string> = new EventEmitter<string>();
   @Output() copyButton: EventEmitter<string> = new EventEmitter<string>();
@@ -74,6 +75,9 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (!this.copyProperty) {
+      this.copyProperty = this.propertyName;
+    }
     this.onSearch = this.fetch ? this.onUserTyping : this.filterOnUserTyping;
     if (this.fetch && this.search.observers.length === 0) {
       // todo: better error description
@@ -390,7 +394,7 @@ export class AtomxSelectComponent implements OnInit, OnDestroy {
   onCopy() {
     this.popup = false;
     const name = this.selected.map(select => {
-      return select.name;
+      return select[this.copyProperty];
     });
     this.copyButton.emit(name.join(' ,'));
     const element = document.createElement('textarea');

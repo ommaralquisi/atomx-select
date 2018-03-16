@@ -95,14 +95,15 @@ add the the `AtomxSelectComponent` selector  to html like so
 * **popupOption**  _type:boolean_ whether to display the popup option *
 * **dataService**     _type: DataService_ instant of DataService class that keep the data in sync between the consumer component and  `AtomxSelectComponent`
 * **loading**  _type:boolean_ display loading indicator
-* **fetch**       _type: boolean_ the component data is fetched api 
+* **fetch**       _type: boolean_ the component data is fetched api
+* **copyProperty** _type: string_ the property to be copied using the copy button, if not specified, it will fall back to **propertyName**
 ### events
 * **search**  fires when the user search(type) this option only work when the fetch property is set to true (when the data is fetch via api)
 * **pasteHandler**  fires when the user past into the input field 
 * **copyButton** fires when the copy button is clicked, it will copy the the selected item **propertyName** and return a string joined by ' ,'
 
 
-\* popupOption display a popup menu that houses two buttons 'copy' to cpoy the selected item to the clipboard  and 'clear' to clear the list of selected items
+\* popupOption display a popup menu that houses two buttons 'copy' to copy the selected item to the clipboard  and 'clear' to clear the list of selected items
 
 ## todo:
 - [ ] testing 
